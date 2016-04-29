@@ -25,7 +25,7 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>http://service.re3data.org/api/v1/repositories</String>
+                                    <String>repositories.xml</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
@@ -40,7 +40,7 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>repositories.xml</String>
+                                    <String>http://service.re3data.org/api/v1/repositories</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>

@@ -570,9 +570,10 @@
  
                 -->
                 
-                <xsl:if test="r3d:repositoryURL"> 
+            <xsl:if test="r3d:repositoryURL or r3d:api or r3d:syndication"> 
     <gmd:distributionInfo>
         <gmd:MD_Distribution>
+            <xsl:if test="r3d:repositoryURL"> 
             <gmd:distributionFormat>
                 <gmd:MD_Format>
                     <gmd:name>
@@ -586,127 +587,135 @@
                 </gmd:MD_Format>
 
             </gmd:distributionFormat>
+            </xsl:if>
 
-            <gmd:transferOptions>
-                <gmd:MD_DigitalTransferOptions>
-                    <gmd:onLine>
-                        <gmd:CI_OnlineResource>
-                            <gmd:linkage>
-                                <gmd:URL><xsl:value-of select="r3d:repositoryURL"/></gmd:URL>
-                            </gmd:linkage>
-                         
+  
+            <xsl:for-each select="r3d:api"> 
+                <gmd:distributionFormat>
+                    <gmd:MD_Format>
                         <gmd:name>
-                        <gco:CharacterString>Repository URL</gco:CharacterString>
+                            <gco:CharacterString>API</gco:CharacterString>
                         </gmd:name>
-                      <!--  <gmd:description>
+                        <gmd:version gco:nilReason="unknown" />
+                        <!--     <gmd:version>
+                        <gco:CharacterString>0.0</gco:CharacterString>
+                    </gmd:version>
+                    -->
+                    </gmd:MD_Format>
+                    
+                    
+                </gmd:distributionFormat>
+            </xsl:for-each>
+            
+          
+             
+            <!--     <r3d:syndication syndicationType="RSS">http://www.globalresearchdatarepository.org/news.rss</r3d:syndication>  optional multiple -->
+            
+            <xsl:for-each select="r3d:syndication"> 
+                
+                <gmd:distributionFormat>
+                    <gmd:MD_Format>
+                        <gmd:name>
+                            <gco:CharacterString>Syndication Feed <xsl:value-of select="@syndicationType"></xsl:value-of></gco:CharacterString>
+                        </gmd:name>
+                        <gmd:version gco:nilReason="inapplicable" />
+                        
+                        
+                    </gmd:MD_Format>
+                    
+                </gmd:distributionFormat>
+            </xsl:for-each>
+                
+                <xsl:if test="r3d:repositoryURL"> 
+                    <gmd:transferOptions>
+                        <gmd:MD_DigitalTransferOptions>
+                            <gmd:onLine>
+                                <gmd:CI_OnlineResource>
+                                    <gmd:linkage>
+                                        <gmd:URL><xsl:value-of select="r3d:repositoryURL"/></gmd:URL>
+                                    </gmd:linkage>
+                                    
+                                    <gmd:name>
+                                        <gco:CharacterString>Repository URL</gco:CharacterString>
+                                    </gmd:name>
+                                    <!--  <gmd:description>
                         <gco:CharacterString>Final Report for LCM2007 - the new UK Land Cover Map</gco:CharacterString>
                         </gmd:description>
                         -->
-                            
-                            <gmd:function>
-                                <gmd:CI_OnLineFunctionCode
+                                    
+                                    <gmd:function>
+                                        <gmd:CI_OnLineFunctionCode
+                                            codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode"
+                                            codeListValue="information"/>
+                                    </gmd:function>
+                                </gmd:CI_OnlineResource>
+                            </gmd:onLine>
+                        </gmd:MD_DigitalTransferOptions>
+                    </gmd:transferOptions>
+                </xsl:if>
+                
+            <xsl:for-each select="r3d:syndication ">       
+                <gmd:transferOptions>
+                    <gmd:MD_DigitalTransferOptions>
+                        <gmd:onLine>
+                            <gmd:CI_OnlineResource>
+                                <gmd:linkage>
+                                    <gmd:URL><xsl:value-of select="."/></gmd:URL>
+                                </gmd:linkage>
+                                
+                                <gmd:name>
+                                    <gco:CharacterString>Syndication Feed</gco:CharacterString>
+                                </gmd:name>
+                                <!--  <gmd:description>
+                        <gco:CharacterString>Final Report for LCM2007 - the new UK Land Cover Map</gco:CharacterString>
+                        </gmd:description>
+                        -->
+                                
+                                <gmd:function>
+                                    <gmd:CI_OnLineFunctionCode
                                         codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode"
                                         codeListValue="information"/>
-                            </gmd:function>
-                        </gmd:CI_OnlineResource>
-                    </gmd:onLine>
-                </gmd:MD_DigitalTransferOptions>
-            </gmd:transferOptions>
+                                </gmd:function>
+                            </gmd:CI_OnlineResource>
+                        </gmd:onLine>
+                    </gmd:MD_DigitalTransferOptions>
+                </gmd:transferOptions>
+            </xsl:for-each>   
+            <xsl:for-each select="r3d:api">
+                <gmd:transferOptions>
+                    <gmd:MD_DigitalTransferOptions>
+                        <gmd:onLine>
+                            <gmd:CI_OnlineResource>
+                                <gmd:linkage>
+                                    <gmd:URL><xsl:value-of select="r3d:api"/></gmd:URL>
+                                </gmd:linkage>
+                                
+                                <gmd:name>
+                                    <gco:CharacterString>API</gco:CharacterString>
+                                </gmd:name>
+                                <!--  <gmd:description>
+                        <gco:CharacterString>Final Report for LCM2007 - the new UK Land Cover Map</gco:CharacterString>
+                        </gmd:description>
+                        -->
+                                
+                                <gmd:function>
+                                    <gmd:CI_OnLineFunctionCode
+                                        codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode"
+                                        codeListValue="download"/>
+                                </gmd:function>
+                            </gmd:CI_OnlineResource>
+                        </gmd:onLine>
+                    </gmd:MD_DigitalTransferOptions>
+                </gmd:transferOptions>
+            </xsl:for-each>
         </gmd:MD_Distribution>
     </gmd:distributionInfo>
                 </xsl:if>
 
-            <xsl:for-each select="r3d:api"> 
-                <gmd:distributionInfo>
-                    <gmd:MD_Distribution>
-                        <gmd:distributionFormat>
-                            <gmd:MD_Format>
-                                <gmd:name>
-                                    <gco:CharacterString>API</gco:CharacterString>
-                                </gmd:name>
-                                <gmd:version gco:nilReason="unknown" />
-                                <!--     <gmd:version>
-                        <gco:CharacterString>0.0</gco:CharacterString>
-                    </gmd:version>
-                    -->
-                            </gmd:MD_Format>
-                            
-                        </gmd:distributionFormat>
-                        
-                        <gmd:transferOptions>
-                            <gmd:MD_DigitalTransferOptions>
-                                <gmd:onLine>
-                                    <gmd:CI_OnlineResource>
-                                        <gmd:linkage>
-                                            <gmd:URL><xsl:value-of select="r3d:api"/></gmd:URL>
-                                        </gmd:linkage>
-                                        
-                        <gmd:name>
-                        <gco:CharacterString>API</gco:CharacterString>
-                        </gmd:name>
-                                        <!--  <gmd:description>
-                        <gco:CharacterString>Final Report for LCM2007 - the new UK Land Cover Map</gco:CharacterString>
-                        </gmd:description>
-                        -->
-                                        
-                                        <gmd:function>
-                                            <gmd:CI_OnLineFunctionCode
-                                                codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode"
-                                                codeListValue="download"/>
-                                        </gmd:function>
-                                    </gmd:CI_OnlineResource>
-                                </gmd:onLine>
-                            </gmd:MD_DigitalTransferOptions>
-                        </gmd:transferOptions>
-                    </gmd:MD_Distribution>
-                </gmd:distributionInfo>
-            </xsl:for-each>
+
+ 
          
-       <!--     <r3d:syndication syndicationType="RSS">http://www.globalresearchdatarepository.org/news.rss</r3d:syndication>  optional multiple -->
-            
-            <xsl:for-each select="r3d:syndication "> 
-                <gmd:distributionInfo>
-                    <gmd:MD_Distribution>
-                        <gmd:distributionFormat>
-                            <gmd:MD_Format>
-                                <gmd:name>
-                                    <gco:CharacterString>Syndication Feed <xsl:value-of select="@syndicationType"></xsl:value-of></gco:CharacterString>
-                                </gmd:name>
-                                <gmd:version gco:nilReason="inapplicable" />
-     
-                    
-                            </gmd:MD_Format>
-                            
-                        </gmd:distributionFormat>
-                        
-                        <gmd:transferOptions>
-                            <gmd:MD_DigitalTransferOptions>
-                                <gmd:onLine>
-                                    <gmd:CI_OnlineResource>
-                                        <gmd:linkage>
-                                            <gmd:URL><xsl:value-of select="."/></gmd:URL>
-                                        </gmd:linkage>
-                                        
-                        <gmd:name>
-                            <gco:CharacterString>Syndication Feed</gco:CharacterString>
-                        </gmd:name>
-                                        <!--  <gmd:description>
-                        <gco:CharacterString>Final Report for LCM2007 - the new UK Land Cover Map</gco:CharacterString>
-                        </gmd:description>
-                        -->
-                                        
-                                        <gmd:function>
-                                            <gmd:CI_OnLineFunctionCode
-                                                codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode"
-                                                codeListValue="information"/>
-                                        </gmd:function>
-                                    </gmd:CI_OnlineResource>
-                                </gmd:onLine>
-                            </gmd:MD_DigitalTransferOptions>
-                        </gmd:transferOptions>
-                    </gmd:MD_Distribution>
-                </gmd:distributionInfo>
-            </xsl:for-each>       
+      
 </gmd:MD_Metadata>
     </xsl:result-document>   
 </xsl:template>

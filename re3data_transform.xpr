@@ -25,11 +25,11 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>repositories.xml</String>
+                                    <String>re3iso/r3d100000002.xml</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>repositories</String>
+                                        <String>repositories_single_file</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
@@ -40,26 +40,11 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>http://service.re3data.org/api/v1/repositories</String>
+                                    <String>examples/r3d100011778.xml</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>repositories</String>
-                                    </list>
-                                </field>
-                                <field name="scenarioTypes">
-                                    <list>
-                                        <String>XSL</String>
-                                    </list>
-                                </field>
-                            </scenarioAssociation>
-                            <scenarioAssociation>
-                                <field name="url">
-                                    <String>repositories.bookmap</String>
-                                </field>
-                                <field name="scenarioIds">
-                                    <list>
-                                        <String>repositories</String>
+                                        <String>repositories_single_file</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
@@ -75,10 +60,55 @@
                         <scenario-array>
                             <scenario>
                                 <field name="advancedOptionsMap">
-                                    <null/>
+                                    <map>
+                                        <entry>
+                                            <String>Saxon-HE</String>
+                                            <xsltSaxonHEAdvancedOptions>
+                                                <field name="showVersionWarnings">
+                                                    <Boolean>false</Boolean>
+                                                </field>
+                                                <field name="dtdSourceValidation">
+                                                    <Boolean>false</Boolean>
+                                                </field>
+                                                <field name="dtdSourceValidationRecover">
+                                                    <Boolean>false</Boolean>
+                                                </field>
+                                                <field name="lineNumbering">
+                                                    <Boolean>false</Boolean>
+                                                </field>
+                                                <field name="initialMode">
+                                                    <null/>
+                                                </field>
+                                                <field name="initialTemplate">
+                                                    <null/>
+                                                </field>
+                                                <field name="traceXPathExpression">
+                                                    <Boolean>true</Boolean>
+                                                </field>
+                                                <field name="errorRecoverPolicy">
+                                                    <String>saxon.recover.with.warning</String>
+                                                </field>
+                                                <field name="stripWS">
+                                                    <String>saxon.strip.ws.none</String>
+                                                </field>
+                                                <field name="optimizationLevel">
+                                                    <String>10</String>
+                                                </field>
+                                                <field name="useConfigFile">
+                                                    <Boolean>false</Boolean>
+                                                </field>
+                                                <field name="configSystemID">
+                                                    <null/>
+                                                </field>
+                                                <field name="initializer">
+                                                    <String></String>
+                                                </field>
+                                            </xsltSaxonHEAdvancedOptions>
+                                        </entry>
+                                    </map>
                                 </field>
                                 <field name="name">
-                                    <String>repositories</String>
+                                    <String>repositories_single_file</String>
                                 </field>
                                 <field name="baseURL">
                                     <String></String>
@@ -111,7 +141,7 @@
                                     <String>XSL</String>
                                 </field>
                                 <field name="saveAs">
-                                    <Boolean>true</Boolean>
+                                    <Boolean>false</Boolean>
                                 </field>
                                 <field name="openInBrowser">
                                     <Boolean>false</Boolean>
@@ -150,7 +180,7 @@
                                     <String-array/>
                                 </field>
                                 <field name="xslTransformer">
-                                    <String>Saxon6.5.5</String>
+                                    <String>Saxon-HE</String>
                                 </field>
                                 <field name="extensionURLs">
                                     <String-array/>

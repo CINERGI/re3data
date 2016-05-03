@@ -196,16 +196,22 @@
                     <gmd:title>
                         <gco:CharacterString><xsl:value-of select="./r3d:repositoryName"/></gco:CharacterString>
                     </gmd:title>
-                    <xsl:choose>
-                        <xsl:when test="./r3d:startDate and ./r3d:startDate != ''">
+                    <xsl:choose> 
+                         <xsl:when test="./r3d:startDate and ./r3d:startDate != ''">
                     <gmd:date>
                         <gmd:CI_Date>
                            
-                            
-                       
-             
+                               
                                 <gmd:date>
-                                    <gco:Date><xsl:value-of select="./r3d:startDate"/></gco:Date>
+                                    <gco:Date>
+                                        <xsl:choose>
+                                            <xsl:when test="./r3d:startDate='1995-12-2'">
+                                                1995-12-02
+                                            </xsl:when>
+                                            <xsl:otherwise><xsl:value-of select="./r3d:startDate"/></xsl:otherwise>
+                                        </xsl:choose>
+                                        
+                                    </gco:Date>
                                 </gmd:date>
                             
 
@@ -481,7 +487,7 @@
             <gmd:resourceConstraints>
                 <gmd:MD_LegalConstraints>
                     <gmd:accessConstraints>
-                        <gmd:MD_RestrictionCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/
+                         <gmd:MD_RestrictionCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/
                             Codelist/gmxCodelists.xml#MD_RestrictionCode" codeListValue="otherRestrictions">otherRestrictions</gmd:MD_RestrictionCode>
                     </gmd:accessConstraints>
                     <gmd:useConstraints>
@@ -495,14 +501,22 @@
             </gmd:resourceConstraints>
    
             
-            
-            <xsl:for-each select="r3d:repositoryLanguage">
-                
+            <xsl:choose>
+                <xsl:when test="r3d:repositoryLanguage">
+                    <xsl:for-each select="r3d:repositoryLanguage and r3d:repositoryLanguage !=''">
 
-            <gmd:language>
-                <gco:CharacterString><xsl:value-of select="."></xsl:value-of></gco:CharacterString>
-            </gmd:language>
-            </xsl:for-each>
+                        <gmd:language>
+                            <gco:CharacterString><xsl:value-of select="."></xsl:value-of></gco:CharacterString>
+                        </gmd:language>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <gmd:language>
+                        <gco:CharacterString>en</gco:CharacterString>
+                    </gmd:language>
+                </xsl:otherwise>
+            </xsl:choose>
+
             <!-- <r3d:type> ??? -->
             <!--
             <gmd:topicCategory>
@@ -564,9 +578,11 @@
                     <gmd:name>
                         <gco:CharacterString>Resource URL</gco:CharacterString>
                     </gmd:name>
-                    <gmd:version>
+                    <gmd:version gco:nilReason="inapplicable" />
+                    <!--     <gmd:version>
                         <gco:CharacterString>0.0</gco:CharacterString>
                     </gmd:version>
+                    -->
                 </gmd:MD_Format>
 
             </gmd:distributionFormat>
@@ -578,11 +594,11 @@
                             <gmd:linkage>
                                 <gmd:URL><xsl:value-of select="r3d:repositoryURL"/></gmd:URL>
                             </gmd:linkage>
-                                                     <!--
+                         
                         <gmd:name>
-                        <gco:CharacterString>CS Technical Report</gco:CharacterString>
+                        <gco:CharacterString>Repository URL</gco:CharacterString>
                         </gmd:name>
-                        <gmd:description>
+                      <!--  <gmd:description>
                         <gco:CharacterString>Final Report for LCM2007 - the new UK Land Cover Map</gco:CharacterString>
                         </gmd:description>
                         -->
@@ -590,7 +606,7 @@
                             <gmd:function>
                                 <gmd:CI_OnLineFunctionCode
                                         codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode"
-                                        codeListValue="download"/>
+                                        codeListValue="information"/>
                             </gmd:function>
                         </gmd:CI_OnlineResource>
                     </gmd:onLine>
@@ -600,6 +616,97 @@
     </gmd:distributionInfo>
                 </xsl:if>
 
+            <xsl:for-each select="r3d:api"> 
+                <gmd:distributionInfo>
+                    <gmd:MD_Distribution>
+                        <gmd:distributionFormat>
+                            <gmd:MD_Format>
+                                <gmd:name>
+                                    <gco:CharacterString>API</gco:CharacterString>
+                                </gmd:name>
+                                <gmd:version gco:nilReason="unknown" />
+                                <!--     <gmd:version>
+                        <gco:CharacterString>0.0</gco:CharacterString>
+                    </gmd:version>
+                    -->
+                            </gmd:MD_Format>
+                            
+                        </gmd:distributionFormat>
+                        
+                        <gmd:transferOptions>
+                            <gmd:MD_DigitalTransferOptions>
+                                <gmd:onLine>
+                                    <gmd:CI_OnlineResource>
+                                        <gmd:linkage>
+                                            <gmd:URL><xsl:value-of select="r3d:api"/></gmd:URL>
+                                        </gmd:linkage>
+                                        
+                        <gmd:name>
+                        <gco:CharacterString>API</gco:CharacterString>
+                        </gmd:name>
+                                        <!--  <gmd:description>
+                        <gco:CharacterString>Final Report for LCM2007 - the new UK Land Cover Map</gco:CharacterString>
+                        </gmd:description>
+                        -->
+                                        
+                                        <gmd:function>
+                                            <gmd:CI_OnLineFunctionCode
+                                                codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode"
+                                                codeListValue="download"/>
+                                        </gmd:function>
+                                    </gmd:CI_OnlineResource>
+                                </gmd:onLine>
+                            </gmd:MD_DigitalTransferOptions>
+                        </gmd:transferOptions>
+                    </gmd:MD_Distribution>
+                </gmd:distributionInfo>
+            </xsl:for-each>
+         
+       <!--     <r3d:syndication syndicationType="RSS">http://www.globalresearchdatarepository.org/news.rss</r3d:syndication>  optional multiple -->
+            
+            <xsl:for-each select="r3d:syndication "> 
+                <gmd:distributionInfo>
+                    <gmd:MD_Distribution>
+                        <gmd:distributionFormat>
+                            <gmd:MD_Format>
+                                <gmd:name>
+                                    <gco:CharacterString>Syndication Feed <xsl:value-of select="@syndicationType"></xsl:value-of></gco:CharacterString>
+                                </gmd:name>
+                                <gmd:version gco:nilReason="inapplicable" />
+     
+                    
+                            </gmd:MD_Format>
+                            
+                        </gmd:distributionFormat>
+                        
+                        <gmd:transferOptions>
+                            <gmd:MD_DigitalTransferOptions>
+                                <gmd:onLine>
+                                    <gmd:CI_OnlineResource>
+                                        <gmd:linkage>
+                                            <gmd:URL><xsl:value-of select="."/></gmd:URL>
+                                        </gmd:linkage>
+                                        
+                        <gmd:name>
+                            <gco:CharacterString>Syndication Feed</gco:CharacterString>
+                        </gmd:name>
+                                        <!--  <gmd:description>
+                        <gco:CharacterString>Final Report for LCM2007 - the new UK Land Cover Map</gco:CharacterString>
+                        </gmd:description>
+                        -->
+                                        
+                                        <gmd:function>
+                                            <gmd:CI_OnLineFunctionCode
+                                                codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode"
+                                                codeListValue="information"/>
+                                        </gmd:function>
+                                    </gmd:CI_OnlineResource>
+                                </gmd:onLine>
+                            </gmd:MD_DigitalTransferOptions>
+                        </gmd:transferOptions>
+                    </gmd:MD_Distribution>
+                </gmd:distributionInfo>
+            </xsl:for-each>       
 </gmd:MD_Metadata>
     </xsl:result-document>   
 </xsl:template>
